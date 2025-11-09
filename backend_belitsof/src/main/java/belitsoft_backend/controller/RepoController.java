@@ -1,8 +1,8 @@
-package com.example.test.controller;
+package belitsoft_backend.controller;
 
-import com.example.test.dto.RepoDTO;
+import belitsoft_backend.dto.RepoDTO;
 import org.springframework.web.bind.annotation.*;
-import com.example.test.service.RepoService;
+import belitsoft_backend.service.RepoService;
 
 import java.util.List;
 import java.util.Map;

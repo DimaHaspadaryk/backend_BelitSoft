@@ -1,4 +1,4 @@
-package com.example.test;
+package belitsoft_backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

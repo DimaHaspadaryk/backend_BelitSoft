@@ -1,4 +1,4 @@
-package com.example.test.dto;
+package belitsoft_backend.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

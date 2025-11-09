@@ -1,4 +1,4 @@
-package com.example.test.service;
+package belitsoft_backend.service;
 
 import org.junit.jupiter.api.Test;
 
