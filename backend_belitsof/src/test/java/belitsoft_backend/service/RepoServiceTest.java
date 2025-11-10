@@ -1,6 +1,7 @@
 package belitsoft_backend.service;
 
 import belitsoft_backend.dto.RepoDTO;
+import belitsoft_backend.dto.RepoResponseDTO;
 import belitsoft_backend.model.RepoSortType;
 import belitsoft_backend.repository.ReposDataRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,7 +43,7 @@ class RepoServiceTest {
 
         when(repoRepository.fetchRepos(TEST_ORG)).thenReturn(mockRepos);
 
-        List<RepoDTO> result = repoService.getRepos(TEST_ORG, limit, RepoSortType.STARS);
+        List<RepoResponseDTO> result = repoService.getRepos(TEST_ORG, limit, RepoSortType.STARS);
 
         assertEquals(limit, result.size());
         assertEquals("repo-B", result.get(0).getName());
@@ -56,7 +57,7 @@ class RepoServiceTest {
 
         when(repoRepository.fetchRepos(TEST_ORG)).thenReturn(mockRepos);
 
-        List<RepoDTO> result = repoService.getRepos(TEST_ORG, limit, RepoSortType.UPDATED);
+        List<RepoResponseDTO> result = repoService.getRepos(TEST_ORG, limit, RepoSortType.UPDATED);
 
         assertEquals(limit, result.size());
         assertEquals("repo-C", result.get(0).getName());
@@ -70,7 +71,7 @@ class RepoServiceTest {
 
         when(repoRepository.fetchRepos(TEST_ORG)).thenReturn(mockRepos);
 
-        List<RepoDTO> result = repoService.getRepos(TEST_ORG, limit, RepoSortType.STARS);
+        List<RepoResponseDTO> result = repoService.getRepos(TEST_ORG, limit, RepoSortType.STARS);
 
         assertEquals(mockRepos.size(), result.size());
         verify(repoRepository).fetchRepos(TEST_ORG);
