@@ -1,6 +1,7 @@
 package belitsoft_backend.controller;
 
 import belitsoft_backend.dto.RepoDTO;
+import belitsoft_backend.model.RepoSortType;
 import org.springframework.web.bind.annotation.*;
 import belitsoft_backend.service.RepoService;
 
@@ -25,7 +26,7 @@ public class RepoController {
     public List<RepoDTO> getRepos(
             @PathVariable String org,
             @RequestParam(defaultValue = "5") int limit,
-            @RequestParam(defaultValue = "stars") String sort
+            @RequestParam(defaultValue = "STARS") RepoSortType sort
     ) {
         return repoService.getRepos(org, limit, sort);
     }

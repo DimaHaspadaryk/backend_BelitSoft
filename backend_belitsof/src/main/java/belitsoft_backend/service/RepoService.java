@@ -1,33 +1,31 @@
 package belitsoft_backend.service;
 
 import belitsoft_backend.dto.RepoDTO;
+import belitsoft_backend.model.RepoSortType;
+import belitsoft_backend.repository.ReposDataRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
 @Service
 public class RepoService {
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final ReposDataRepository repoRepository;
 
-    public List<RepoDTO> getRepos(String org, int limit, String sort) {
-        String gitUrl = "https://api.github.com/orgs/";
-        String url = UriComponentsBuilder
-                .fromUriString(gitUrl + org + "/repos")
-                .toUriString();
+    public RepoService(ReposDataRepository repoRepository) {
+        this.repoRepository = repoRepository;
+    }
 
-        RepoDTO[] repos = restTemplate.getForObject(url, RepoDTO[].class);
-        if (repos == null) return List.of();
+    public List<RepoDTO> getRepos(String org, int limit, RepoSortType sortType) {
+        List<RepoDTO> repos = repoRepository.fetchRepos(org);
 
-        Comparator<RepoDTO> comparator = sort.equals("updated")
-                ? Comparator.comparing(RepoDTO::getUpdatedAt).reversed()
-                : Comparator.comparing(RepoDTO::getStargazersCount).reversed();
+        Comparator<RepoDTO> comparator = switch (sortType) {
+            case UPDATED -> Comparator.comparing(RepoDTO::getUpdatedAt).reversed();
+            case STARS -> Comparator.comparing(RepoDTO::getStargazersCount).reversed();
+        };
 
-        return Arrays.stream(repos)
+        return repos.stream()
                 .sorted(comparator)
                 .limit(limit)
                 .toList();
